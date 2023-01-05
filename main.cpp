@@ -1,22 +1,17 @@
-#include "cli.hpp"
+#include "include/cli.hpp"
 
 #include <iostream>
 #include <functional>
 
 int main(int argc, const char* argv[])
 {
-    cli::Cli cli("beba");
+    cli::Cli cli(argv[0]);
     
-    bool exit = false;
-
-    cli.add("test", "Test command", [](){ std::cout << "Joo" << std::endl; });
-    cli.add("jofa", "Test command", [](int a, int b){ std::cout << a + b << std::endl; });
-    cli.add("quit", "Exits application", [&](){ exit = true; });
+    cli.add("test", "Test command", [](){ std::cout << "Joo\n"; });
+    //cli.add("jofa", "Test command", [](int a, int b){ std::cout << a + b << std::endl; });
+    cli.add("exit", "Exits application", [&](){ cli.quit(); });
     
-    while (!exit)
-    {
-        cli.run();
-    }
+    cli.run();
 
     return 0;
 }
